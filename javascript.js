@@ -1,5 +1,5 @@
 let container = document.querySelector("#container");
-let gridColorMap = {};
+let gridColorMap = new Map();
 
 const generateGrid = (size) => {
     container.innerHTML = "";
@@ -13,7 +13,7 @@ const generateGrid = (size) => {
             columnContainer.classList.add("column");
 
             columnContainer.addEventListener('mouseover', () => {
-                let currentColor = gridColorMap[row + "" + column];
+                let currentColor = gridColorMap.get(columnContainer);
 
                 if(!currentColor){
                     let hue = Math.round(Math.random() * 360);
@@ -25,7 +25,7 @@ const generateGrid = (size) => {
                 }
 
                 columnContainer.style.backgroundColor = currentColor;
-                gridColorMap[row + "" + column] = currentColor;
+                gridColorMap.set(columnContainer, currentColor);
             });
     
             rowContainer.appendChild(columnContainer);
@@ -43,7 +43,7 @@ newGridButton.addEventListener('click', () => {
 
     if(size <= 100)
     {
-        gridColorMap = {};
+        gridColorMap = new Map();
         generateGrid(size);
     }
 })
