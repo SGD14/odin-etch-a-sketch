@@ -8,10 +8,15 @@ for(let row = 0; row < 16; row++){
         let columnContainer = document.createElement("div");
         columnContainer.classList.add("column");
 
-        columnContainer.addEventListener('mouseover', () => columnContainer.style.backgroundColor = "Black");
+        columnContainer.addEventListener('mouseover', () => columnContainer.classList.add("colored"));
 
         rowContainer.appendChild(columnContainer);
     }
 
     container.appendChild(rowContainer);
 }
+
+let newGridButton = document.querySelector("#new-grid-button");
+newGridButton.addEventListener('click', () => {
+    
+})
