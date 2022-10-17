@@ -8,6 +8,8 @@ for(let row = 0; row < 16; row++){
         let columnContainer = document.createElement("div");
         columnContainer.classList.add("column");
 
+        columnContainer.addEventListener('mouseover', () => columnContainer.style.backgroundColor = "Black");
+
         rowContainer.appendChild(columnContainer);
     }
 
