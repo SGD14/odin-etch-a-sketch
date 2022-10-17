@@ -1,4 +1,5 @@
 let container = document.querySelector("#container");
+let gridColorMap = {};
 
 const generateGrid = (size) => {
     container.innerHTML = "";
@@ -10,8 +11,22 @@ const generateGrid = (size) => {
         for(let column = 0; column < size; column++){
             let columnContainer = document.createElement("div");
             columnContainer.classList.add("column");
-    
-            columnContainer.addEventListener('mouseover', () => columnContainer.classList.add("colored"));
+
+            columnContainer.addEventListener('mouseover', () => {
+                let currentColor = gridColorMap[row + "" + column];
+
+                if(!currentColor){
+                    let hue = Math.round(Math.random() * 360);
+                    currentColor = "hsl(" + hue + ", 100%, 50%)";
+                } else {
+                    let currentHue = currentColor.split(",").shift().replace("hsl(", "");
+                    let currentLightness = currentColor.split(",").pop().replace("%)", "").trim();
+                    currentColor = "hsl(" + currentHue + ", 100%, " + (Math.max(0, currentLightness - 5)) + "%)";
+                }
+
+                columnContainer.style.backgroundColor = currentColor;
+                gridColorMap[row + "" + column] = currentColor;
+            });
     
             rowContainer.appendChild(columnContainer);
         }
@@ -27,5 +42,8 @@ newGridButton.addEventListener('click', () => {
     let size = prompt("Select size (max 100)");
 
     if(size <= 100)
+    {
+        gridColorMap = {};
         generateGrid(size);
+    }
 })
